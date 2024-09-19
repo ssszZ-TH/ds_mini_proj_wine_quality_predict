@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  backend:
+    container_name: backend_ml
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/app
+    ports:
+      - "5000:5000" # แมปพอร์ต 5000 ของโฮสต์ไปยังพอร์ต 5000 ของคอนเทนเนอร์
+
+  # react frontend service
+  frontend:
+    container_name: frontend_ml
+    build:
+    # Dockerfile path
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+    ports:
+      - 5173:5173
+    depends_on:
+      - backend
