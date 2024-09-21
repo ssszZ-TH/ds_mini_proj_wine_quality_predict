@@ -14,32 +14,21 @@ import {
 
 // กำหนด interface สำหรับข้อมูลฟอร์ม
 interface FormData {
-  alcohol: string;
+  fixedAcidity: string;
   volatileAcidity: string;
-  citricAcid: string;
-  residualSugar: string;
-  chlorides: string;
-  freeSulfurDioxide: string;
   totalSulfurDioxide: string;
-  density: string;
-  pH: string;
   sulphates: string;
-  alcoholAgain: string;
+  alcohol: string;
 }
 
 // กำหนดค่าเริ่มต้นสำหรับข้อมูลฟอร์ม
 const initialFormData: FormData = {
-  alcohol: '',
+
+  fixedAcidity: '',
   volatileAcidity: '',
-  citricAcid: '',
-  residualSugar: '',
-  chlorides: '',
-  freeSulfurDioxide: '',
   totalSulfurDioxide: '',
-  density: '',
-  pH: '',
   sulphates: '',
-  alcoholAgain: '',
+  alcohol: '',
 };
 
 // สร้าง component หลักของฟอร์ม
@@ -85,6 +74,7 @@ const WineQualityForm: React.FC = () => {
       if (response.ok) {
         // ถ้าการร้องขอสำเร็จ ให้แสดงผลลัพธ์การพยากรณ์
         const result = await response.json();
+        console.log('Result:', result);
         setPrediction(result.prediction[0] === 1 ? 'Good Quality' : 'Poor Quality');
       } else {
         setPrediction('Error occurred'); // กรณีเกิดข้อผิดพลาด
@@ -109,7 +99,7 @@ const WineQualityForm: React.FC = () => {
                   fullWidth
                   label={key.replace(/([A-Z])/g, ' $1').trim()} // เปลี่ยนชื่อฟิลด์ให้มีช่องว่างระหว่างคำ ถ้าเจอตัวอักษรตัวใหญ่ ให้เติม space ด้านหน้า
                   type="number"
-                  step="0.01"
+                  // step="0.01"
                   name={key}
                   value={value}
                   onChange={handleInputChange}
@@ -129,7 +119,7 @@ const WineQualityForm: React.FC = () => {
       {prediction && (
         <CardContent>
           <Typography variant="h6" align="center">
-            Prediction: {prediction} // แสดงผลลัพธ์การพยากรณ์
+            Prediction: {prediction}
           </Typography>
         </CardContent>
       )}
