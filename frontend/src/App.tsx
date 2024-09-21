@@ -45,10 +45,13 @@ const WineQualityForm: React.FC = () => {
   // ฟังก์ชันสำหรับจัดการการเปลี่ยนแปลงในช่อง input
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value // อัปเดตค่าของฟิลด์ที่เปลี่ยน
-    }));
+    // ตรวจสอบว่าค่าเป็นตัวเลขและไม่ติดลบ
+    if (!isNaN(Number(value)) && Number(value) >= 0) {
+      setFormData(prevState => ({
+        ...prevState,
+        [name]: value
+      }));
+    }
   };
 
   // ฟังก์ชันสำหรับจัดการเมื่อฟอร์มถูกส่ง
